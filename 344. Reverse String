@@ -1,0 +1,17 @@
+// my try
+public class Solution {
+    public String reverseString(String s) {
+        int length=s.length();
+        if(length==0) return new String("");
+        int midPosition=length/2;
+        length=length-1;
+        char swap;
+        char[] sChar=s.toCharArray();
+        for(int i=0;i<midPosition;i++){
+            swap=sChar[length-i];
+            sChar[length-i]=sChar[i];
+            sChar[i]=swap;
+        }
+        return new String(sChar);
+    }
+}

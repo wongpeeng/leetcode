@@ -1,0 +1,15 @@
+public class Solution {
+    public TreeNode invertTree(TreeNode root) {
+       invTree(root);
+       return root;
+    }//
+    public static void invTree(TreeNode root){
+        if(root==null) return;
+        //TreeNode mid=new TreeNode(root.val);
+        TreeNode mid=root.left;
+        root.left=root.right;
+        root.right=mid;
+        invTree(root.left);
+        invTree(root.right);
+    }//
+}

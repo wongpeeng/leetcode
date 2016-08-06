@@ -1,0 +1,36 @@
+//
+public class Solution {
+    public int addDigits(int num) {
+      //if(num<10) return num;
+      int sum=0;
+      int midValue;
+      while(num>=10){
+          while(num>0){
+              midValue=num%10;
+              sum+=midValue;
+              num=num/10;
+          }
+          num=sum;
+          sum=0;
+      }//while
+      return num;
+    }
+}
+
+
+//
+public class Solution {
+    public int addDigits(int num) {
+      while(num>=10){
+              num=num%10+num/10;
+      }//while
+      return num;
+    }
+}
+
+//
+public class Solution {
+    public int addDigits(int num) {
+      return (num-1)%9+1;
+    }
+}

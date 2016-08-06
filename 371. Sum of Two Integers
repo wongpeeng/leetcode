@@ -1,3 +1,6 @@
+//我的思路是按照真值表求出进位和当前位的值，同时有一个为控制，用来将此位的值通过xor写入和的对应位中
+//网上有很简单的代码，两三行就解决了，不过没看大懂
+//细研究的话可以看看
 public class Solution {
     public int getSum(int a, int b) {
      int bitPosition=1;

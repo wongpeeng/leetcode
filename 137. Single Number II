@@ -1,3 +1,4 @@
+//此方法是最普通的方法，统计所有数字在xbit位置上的1的数目，然后除以3，剩下的就是那一个数的bit值，此处3可以推广到k
 public class Solution {
     public int singleNumber(int[] nums) {
         int i=Integer.SIZE;

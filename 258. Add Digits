@@ -1,4 +1,4 @@
-//
+//这是我的写法，也是最容易想起来的，两个循环，一次处理值和结果
 public class Solution {
     public int addDigits(int num) {
       //if(num<10) return num;
@@ -18,7 +18,7 @@ public class Solution {
 }
 
 
-//
+//网上的，这个和不用另起循环，因为可结合运算法则
 public class Solution {
     public int addDigits(int num) {
       while(num>=10){
@@ -28,7 +28,7 @@ public class Solution {
     }
 }
 
-//
+//网上的，这个是将num和didits结果列出来对比发现出来的规律
 public class Solution {
     public int addDigits(int num) {
       return (num-1)%9+1;

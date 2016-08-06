@@ -1,10 +1,14 @@
+//这个是看了网上的答案从写出来的，核心是我们知道了a和b的xor结果，通过做差这一步，就是把sn－1，
+//然后取反，这样的话n不能为0，而且n不为1的bit位置a和b的值不同，然后通过n与数组的数进行与，不为0的数就不是a或者b中的一个，
+//而且包含a或者b中的一个，又其他数字成对出现，ab以外的数字最终被分为两组，
+//每组包含成对的数字及a或者b，进行xor，就可以得到两个数
 public class Solution {
     public int[] singleNumber(int[] nums) {
         int sn=0;
         for(int i:nums){
             sn=sn^i;
         }//for
-        sn=(sn&(~(sn-1)));
+        sn=(sn&(~(sn-1)));//做差
         int[] res=new int[2];
         res[0]=0;
         res[1]=0;

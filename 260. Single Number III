@@ -1,0 +1,20 @@
+public class Solution {
+    public int[] singleNumber(int[] nums) {
+        int sn=0;
+        for(int i:nums){
+            sn=sn^i;
+        }//for
+        sn=(sn&(~(sn-1)));
+        int[] res=new int[2];
+        res[0]=0;
+        res[1]=0;
+        for(int i:nums){
+            if((sn&i)!=0){
+                res[0]^=i;
+            }//if
+            else
+                res[1]^=i;
+        }//for
+        return res;
+    }//public
+}

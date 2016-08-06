@@ -1,0 +1,17 @@
+public class Solution {
+    public int singleNumber(int[] nums) {
+        int i=Integer.SIZE;
+        int length=nums.length;
+        int val=0;
+        int mid=0;
+        for(int count=0;count<i;count++){
+            mid=0;
+            for(int l=0;l<length;l++){
+                mid=mid+((nums[l]>>count)&1);
+            }//for2
+            mid=mid%3;
+            val=val+(mid<<count);
+        }//for1
+        return val;
+    }
+}

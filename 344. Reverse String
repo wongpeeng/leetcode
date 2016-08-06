@@ -1,4 +1,5 @@
-// my try
+// 方法很简单，生成一个字符数组，然后交换位置或者生成一个空数组，把string里的字符倒着填进去
+//关键是java的对象是不能改变的，如果通过生程新String然后添加会导致很多对象的生成，引用只指向最新的对象
 public class Solution {
     public String reverseString(String s) {
         int length=s.length();

@@ -1,3 +1,4 @@
+//同样使用递归
 public class Solution {
     public TreeNode invertTree(TreeNode root) {
        invTree(root);

@@ -1,3 +1,5 @@
+//用的递归，没有使用dfs+queue，这个也不难实现
+//注意java递归函数要写成static才行
 public class Solution {
     public int maxDepth(TreeNode root) {
        if(root==null)

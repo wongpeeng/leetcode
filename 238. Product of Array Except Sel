@@ -1,3 +1,5 @@
+
+//最简单的用了先乘再除，这个要注意0以及数目
 public class Solution {
     public int[] productExceptSelf(int[] nums) {
         int[] product=new int[nums.length];
@@ -25,7 +27,7 @@ public class Solution {
     }
 }
 
-//
+//参考了网上写的，先左边依次乘，然后从右依次乘，怎么个写法会影响代买行数，我写的就比较啰嗦，主要是乘的时候存的位置不好
 public class Solution {
     public int[] productExceptSelf(int[] nums) {
         int[] product=new int[nums.length];
@@ -45,3 +47,21 @@ public class Solution {
         
     }
 }
+
+//网上比较好的，不过这个是c++de 
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> res(nums.size(), 1);
+        for (int i = 1; i < nums.size(); ++i) {
+            res[i] = res[i - 1] * nums[i - 1];
+        }
+        int right = 1;
+        for (int i = nums.size() - 1; i >= 0; --i) {
+            res[i] *= right;
+            right *= nums[i];
+        }
+        return res;
+    }
+}
+

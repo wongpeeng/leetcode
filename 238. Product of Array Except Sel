@@ -1,0 +1,47 @@
+public class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] product=new int[nums.length];
+        int res=1;
+        int numZero=0;
+        for(int x:nums){
+            if(x!=0)
+                res=res*x;
+            else
+                numZero++;
+        }//for
+        if(numZero>1)
+            return product;
+        if(numZero==0){
+            for(int i=0;i<nums.length;i++)
+                product[i]=res/nums[i];
+        }//if
+        else{
+            for(int i=0;i<nums.length;i++)
+                if(nums[i]==0) product[i]=res;
+        }//else
+       
+        return product;
+        
+    }
+}
+
+//
+public class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] product=new int[nums.length];
+        int res=1;
+        int numZero=0;
+        product[0]=nums[0];
+        for(int i=1;i<nums.length;i++)
+            product[i]=nums[i]*product[i-1];
+        int i=nums.length-1;
+        product[i]=product[i-1];
+        for(i=i-1;i>0;i--){
+            res=res*nums[i+1];
+            product[i]=product[i-1]*res;
+        }//for
+        product[0]=res*nums[1];
+        return product;
+        
+    }
+}

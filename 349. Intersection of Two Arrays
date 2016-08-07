@@ -1,5 +1,6 @@
 //array和arraylist的使用
 //注意序号在判断循环内增长的问题，不要让他再特殊情况下保持不变会进入死循环
+//用set之类的可能会更好
 public class Solution {
     public int[] intersection(int[] nums1, int[] nums2) {
         Arrays.sort(nums1);

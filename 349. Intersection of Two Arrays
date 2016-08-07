@@ -1,0 +1,36 @@
+//array和arraylist的使用
+//注意序号在判断循环内增长的问题，不要让他再特殊情况下保持不变会进入死循环
+public class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        ArrayList<Integer> res=new ArrayList();
+        int pos1=0;
+        int pos2=0;
+        while(pos1<nums1.length&&pos2<nums2.length){
+           //to find the same one
+           while(pos1<nums1.length&&pos2<nums2.length){
+               if(nums1[pos1]<nums2[pos2]) {pos1++;continue;}
+               if(nums1[pos1]>nums2[pos2]) {pos2++;continue;}
+               break;
+           }//while
+           //get the target
+           if(pos1<nums1.length&&pos2<nums2.length)
+               res.add(nums1[pos1]);
+         //to find the next position
+         pos1++;pos2++;
+           while(pos1<nums1.length){
+               if(nums1[pos1]!=nums1[pos1-1]) break;
+               pos1++;
+           }//while
+           while(pos2<nums2.length){
+               if(nums2[pos2]!=nums2[pos2-1]) break;
+               pos2++;
+           }//while
+        }//while
+        int[] values = new int[res.size()];
+        for(int i=0;i<res.size();i++)
+            values[i]=res.get(i);
+        return values;
+    }
+}

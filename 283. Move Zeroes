@@ -1,3 +1,5 @@
+//要保证除了0以外的数字顺序争取，所有不能开头一个指针后面一个指针，一次找，然后交换，这样会打乱顺序
+//所以一个指针找0，然后另外一个指针在前一个指针后面找非0就好了
 public class Solution {
     public void moveZeroes(int[] nums) {
         if(nums.length<=1) return;

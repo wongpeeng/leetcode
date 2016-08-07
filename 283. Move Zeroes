@@ -1,0 +1,28 @@
+public class Solution {
+    public void moveZeroes(int[] nums) {
+        if(nums.length<=1) return;
+        int zPos=0;
+        int nonPos=0;
+        int temp;
+        while(zPos<nums.length){
+            while(zPos<nums.length){
+                if(nums[zPos]==0)
+                    break;
+                zPos++;
+            }//while
+            if(zPos==nums.length) break;
+            nonPos=zPos+1;
+            while(nonPos<nums.length){
+                if(nums[nonPos]!=0)
+                    break;
+                nonPos++;
+            }//while
+            if(nonPos==nums.length)break;
+            temp=nums[zPos];
+            nums[zPos]=nums[nonPos];
+            nums[nonPos]=temp;
+            zPos++;
+        }//while
+        return;
+    }//fun
+}

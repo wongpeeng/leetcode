@@ -1,0 +1,13 @@
+//进制问题，因为我们用到的都是从0开始的，所以要减去1
+//每个循环都是这样，这个很关键
+public class Solution {
+    public String convertToTitle(int n) {
+        String ct=new String("");
+        while(n!=0){
+            n--;
+            ct=(char)(n%26+65)+ct;
+            n=n/26;
+        }
+        return ct;
+    }
+}

@@ -1,0 +1,42 @@
+//我的想法是，先找一个低谷价格，再找一个高峰价格，然后从高峰位置的下一个位置依次循环，这个也是时间复杂度比较低
+//存在的问题是位置控制不太好
+//网上的算法是直接拿一天减去前一天的价格，是正的话就加上，这种方法很好，是负说明价格下降，是正说明价格上涨，
+//这个区间的收入我们已经拿到
+//我的，代码太长，位置控制容易出错
+public class Solution {
+    public int maxProfit(int[] prices) {
+        if(prices.length==0) return 0;
+        int buy;
+        int sel;
+        int profit=0;
+        int i=0,j=0,k=0;
+       while(i<prices.length){
+            buy=prices[i];
+            for(j=i;j<prices.length;j++){
+                if(prices[j]<=buy)
+                    {buy=prices[j];continue;}
+                break;
+            }//for,find the lower prices;
+            sel=buy;
+            for(k=j;k<prices.length;k++){
+                if(prices[k]>=sel)
+                    {sel=prices[k];continue;}
+                break;
+            }//higher prices
+            profit+=Math.max(sel-buy,0);
+            i=k;
+        }//for
+        return profit;
+    }
+}
+
+//按照网上思路写的
+public class Solution {
+    public int maxProfit(int[] prices) {
+        int profit=0;
+        int i=1;
+        for(i=1;i<prices.length;i++)
+        profit+=Math.max(prices[i]-prices[i-1],0);
+        return profit;
+    }
+}

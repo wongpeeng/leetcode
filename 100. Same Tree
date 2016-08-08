@@ -1,0 +1,13 @@
+//递归实现，当然也可以用队列
+public class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        return same(p,q);
+    }
+    public static boolean same(TreeNode p, TreeNode q) {
+        if(p==null&&q!=null) return false;
+        if(p!=null&&q==null) return false;
+        if(p==q) return true;
+        if(p.val!=q.val) return false;
+        return same(p.left,q.left)&&same(p.right,q.right);
+    }
+}

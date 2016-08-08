@@ -1,5 +1,8 @@
 //我写的比较啰嗦，显示统计频率，然后按字母排序，在比较，比较好的方式是吗直接对字符串进行排序
 //排序之后两个字符串应该是一样的，
+//我写的其实应该不排序也行，就是按照一个值是否在两个map中存在，然后对应的值等不等来算，如这个网址：
+http://blog.csdn.net/zuoyexingchennn/article/details/47303557
+//总之我写很啰嗦
 public class Solution {
     public boolean isAnagram(String s, String t) {
         int len1=s.length();

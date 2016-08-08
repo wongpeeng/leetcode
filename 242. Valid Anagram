@@ -1,0 +1,59 @@
+//我写的比较啰嗦，显示统计频率，然后按字母排序，在比较，比较好的方式是吗直接对字符串进行排序
+//排序之后两个字符串应该是一样的，
+public class Solution {
+    public boolean isAnagram(String s, String t) {
+        int len1=s.length();
+        int len2=t.length();
+        if(len1==0&&len2==0) return true;
+        if(len1!=len2) return false;
+        Map<String,Integer> map1=new HashMap<String,Integer>();
+        Map<String,Integer> map2=new HashMap<String,Integer>();
+        for(int i=0;i<len1;i++){
+            if(map1.containsKey(String.valueOf(s.charAt(i))))
+                map1.put(String.valueOf(s.charAt(i)),map1.get(String.valueOf(s.charAt(i)))+1);
+            else
+                map1.put(String.valueOf(s.charAt(i)),1);
+        }//for
+        for(int i=0;i<len2;i++){
+            if(map2.containsKey(String.valueOf(t.charAt(i))))
+                map2.put(String.valueOf(t.charAt(i)),map2.get(String.valueOf(t.charAt(i)))+1);
+            else
+                map2.put(String.valueOf(t.charAt(i)),1);
+        }//for
+        if(map1.size()!=map2.size()) return false;
+       MySort mysort=new MySort();
+       List<Map.Entry<String,Integer>> list1=new ArrayList<Map.Entry<String,Integer>>(map1.entrySet());
+       List<Map.Entry<String,Integer>> list2=new ArrayList<Map.Entry<String,Integer>>(map2.entrySet());
+       Collections.sort(list1,mysort);
+       Collections.sort(list2,mysort);
+       Iterator<Map.Entry<String, Integer>> iter1 = list1.iterator();
+       Iterator<Map.Entry<String, Integer>> iter2 = list2.iterator();
+       
+       while(iter1.hasNext()&&iter2.hasNext()){
+        Map.Entry<String,Integer> e1=iter1.next();
+        Map.Entry<String,Integer> e2=iter2.next();
+        if(e1.getKey().equals(e2.getKey())&&e1.getValue().equals(e2.getValue()))
+            continue;
+        return false;
+       }//while
+       return true;
+    }//public
+     //排序先写comparator类,内部类
+        class MySort implements Comparator<Map.Entry<String,Integer>>{
+            public int compare(Map.Entry<String,Integer> o1,Map.Entry<String,Integer> o2){
+                return o1.getKey().compareTo(o2.getKey());
+            }//compare
+        }//class
+}
+//数组排序都可以用arrays.sort()
+public class Solution {
+    public boolean isAnagram(String s, String t) {
+        char[] sChar=s.toCharArray();
+        Arrays.sort(sChar);
+        char[] tChar=t.toCharArray();
+        Arrays.sort(tChar);
+        String s1=new String(sChar);
+        String t1=new String(tChar);
+        return s1.equals(t1);
+    }
+}

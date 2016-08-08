@@ -1,0 +1,16 @@
+//当到第i天时，我们用今天的价格减去过去几天最低的价格就是到今天的最大收益
+//要注意的是考虑输入价格为空以及，收益为负，这时候需要把收益写为0
+public class Solution {
+    public int maxProfit(int[] prices) {
+        if(prices.length==0) return 0;
+        int minBuyPrice=prices[0];
+        int profit=0;
+        int temp;
+        for(int i:prices){
+            temp=i-minBuyPrice;
+            profit=profit>temp?profit:temp;
+            minBuyPrice=minBuyPrice<=i?minBuyPrice:i;
+        }//for
+        return profit>0?profit:0;
+    }
+}

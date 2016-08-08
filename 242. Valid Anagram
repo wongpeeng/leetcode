@@ -3,6 +3,7 @@
 //我写的其实应该不排序也行，就是按照一个值是否在两个map中存在，然后对应的值等不等来算，如这个网址：
 http://blog.csdn.net/zuoyexingchennn/article/details/47303557
 //总之我写很啰嗦
+//还可以写一个26位的数组，对应每一位对应一个字母的次数，然后比较，
 public class Solution {
     public boolean isAnagram(String s, String t) {
         int len1=s.length();

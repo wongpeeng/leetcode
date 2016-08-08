@@ -1,0 +1,28 @@
+//思路，先用hashmap统计出现的次数，然后按照次数排序，这个需要用到collection 的sort以及comparator,还不太熟悉，
+//要熟练使用
+public class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        HashMap<Integer,Integer> tMap=new HashMap<Integer,Integer>();
+        for(int x:nums){
+            if(tMap.containsKey(x))
+                tMap.put(x,tMap.get(x)+1);
+            else
+                tMap.put(x,1);
+        }//for
+        //按照value排序，需要进行自定义排序，Collections排序只支持list，所以要先转换为list
+        List<Map.Entry<Integer,Integer>> tList=new ArrayList<Map.Entry<Integer,Integer>>(tMap.entrySet());
+        Collections.sort(tList,new Comparator<Map.Entry<Integer,Integer>>(){
+            public int compare(Map.Entry<Integer,Integer> o1,Map.Entry<Integer,Integer> o2){
+                return o2.getValue().compareTo(o1.getValue()); 
+            }
+        });//排序
+        int i=0;
+        List<Integer> res=new ArrayList<Integer>();
+        for(Map.Entry<Integer,Integer> x:tList){
+            if(i>=k) break;
+            res.add(x.getKey());
+            i++;
+        }
+        return res;
+    }//public
+}

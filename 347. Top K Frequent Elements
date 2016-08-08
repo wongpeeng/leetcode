@@ -1,7 +1,8 @@
 //思路，先用hashmap统计出现的次数，然后按照次数排序，这个需要用到collection 的sort以及comparator,还不太熟悉，
 //要熟练使用
-//升序，传入两个参数1.compareTo(2);
-//降序，反过来2.compareTo(1);
+//升序，传入两个参数1.compareTo(2)，2-1>0,故升;
+//降序，反过来2.compareTo(1)，1-2<0,故降;
+//比较方法是第二个减去第一个，返回为1的就不处理，认为顺序正确
 public class Solution {
     public List<Integer> topKFrequent(int[] nums, int k) {
         HashMap<Integer,Integer> tMap=new HashMap<Integer,Integer>();

@@ -1,0 +1,37 @@
+//熟练掌握数的三种遍历很重要，这是中序
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list=new ArrayList<Integer>();
+        Stack<TreeNode> tree=new Stack<TreeNode>();
+        if(root==null) return list;
+        tree.push(root);
+        while(!tree.isEmpty()){
+            TreeNode temp=tree.peek();
+            while(temp.left!=null){
+                temp=temp.left;
+                tree.push(temp);
+            }//while2
+            temp=tree.pop();
+            list.add(temp.val);
+            if(temp.right!=null)
+                tree.push(temp.right);
+            else
+                while(!tree.isEmpty()){
+                    temp=tree.pop();
+                    list.add(temp.val);
+                    if(temp.right!=null)
+                        {tree.push(temp.right);break;}
+                }//while3
+        }//while1
+        return list;
+    }//public
+}

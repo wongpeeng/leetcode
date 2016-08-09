@@ -1,0 +1,14 @@
+//这一题不难，难得是当输入数组很大的时候容易超时，这个以后要考虑
+//所以一开始边插入变查询是比较慢的，直接插入最后再查询size是否相当会比较快点
+public class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        if(nums.length<2)return false;
+        Map<Integer,Integer> cMap=new HashMap<Integer,Integer>();
+        for(int x:nums){
+            cMap.put(x,1);
+        }//for
+        if(cMap.size()==nums.length)
+            return false;
+        return true;
+    }
+}

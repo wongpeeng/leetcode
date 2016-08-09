@@ -1,0 +1,19 @@
+//此题是要求各个位不相同的数字，用阶乘就可以搞定
+//我刚开始做的误区是只考虑了n位的数字数目，没考虑，n-1位直到1位的数字，
+//两位及以上的数字开头不能是0，
+//所以用递归，也可以用循环做，不过循环容易写错
+public class Solution {
+    public int countNumbersWithUniqueDigits(int n) {
+        n=n>10?10:n;
+        return count(n);
+    }//
+    public static int count(int n){
+        if(n==2) return 91;
+        if(n==1) return 10;
+        if(n==0) return 1;
+        int res=9;
+        for(int i=1;i<n;i++)
+            res=res*(10-i);
+        return res+count(n-1);
+    }//count 
+}

@@ -1,4 +1,4 @@
-//熟练掌握数的三种遍历很重要，这是中序
+//熟练掌握数的三种遍历很重要，这是中序，但是我写的很罗嗦，参考标准答案比较好
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

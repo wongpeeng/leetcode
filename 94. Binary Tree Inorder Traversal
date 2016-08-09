@@ -1,4 +1,5 @@
 //熟练掌握数的三种遍历很重要，这是中序，但是我写的很罗嗦，参考标准答案比较好
+//争取的写法是我们拿到一个外部节点，然后对这个处理，而不是最开始直接入栈root
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -34,4 +35,25 @@ public class Solution {
         }//while1
         return list;
     }//public
+}
+///参考之后
+public class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list=new ArrayList<Integer>();
+        Stack<TreeNode> tree=new Stack<TreeNode>();
+        TreeNode cur=root;
+        while(!tree.isEmpty()||cur!=null){
+            while(cur!=null){
+                tree.push(cur);
+                cur=cur.left;
+            }//while2
+            if(!tree.isEmpty()){
+                cur=tree.pop();
+                list.add(cur.val);
+                cur=cur.right;
+            }
+                
+        }//while
+        return list;
+    }
 }

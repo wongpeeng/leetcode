@@ -1,0 +1,7 @@
+//因为这个数目超过一半，所以排序之后中间或者中间两边的数字肯定是这个数
+public class Solution {
+    public int majorityElement(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length/2];
+    }
+}

@@ -1,4 +1,4 @@
-//这一题不难，难得是当输入数组很大的时候容易超时，这个以后要考虑
+//这一题不难，难得是当输入数组很大的时候容易超时，这个以后要考虑，关键是插入要快，这个hash比较好
 //所以一开始边插入变查询是比较慢的，直接插入最后再查询size是否相当会比较快点
 public class Solution {
     public boolean containsDuplicate(int[] nums) {

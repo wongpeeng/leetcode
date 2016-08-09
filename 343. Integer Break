@@ -1,0 +1,17 @@
+//这是一道数学题，通过计算可知，当3的数目最多的时候，且满足2x+3y=z的时候，可得到最大值
+//所以如果最后余数为1时我们要巴一个3分给2，2的数目这个时候要加2；
+//同时要注意到必须分为两个数字至少，所以，开始的几个数要直接给结果
+public class Solution {
+    public int integerBreak(int n) {
+        if(n==2) return 1;
+        if(n==3) return 2;
+        if(n==4) return 4;
+        int num2=0;
+        int num3=0;
+        num3=n/3;
+        n=n%3;
+        num2=n/2;
+        if(n%2!=0){num3--;num2=num2+2;}
+        return (int)(Math.pow(3,num3)*Math.pow(2,num2));
+    }
+}

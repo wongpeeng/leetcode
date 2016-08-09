@@ -1,0 +1,17 @@
+//需要三个指针
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        if(head==null||head.next==null) return head;
+        ListNode front=head;
+        ListNode middle=head.next;
+        ListNode last=middle.next;
+        head.next=null;
+        while(middle!=null){
+            last=middle.next;
+            middle.next=front;
+            front=middle;
+            middle=last;
+        }//while
+        return front;
+    }//public
+}

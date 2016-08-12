@@ -1,0 +1,20 @@
+//这道题刚开始我想到了取中间数，但是没有数学上的证明，然后又想到平衡树旋转，但是不现实，想了很久看了一下网上的思路发现我一开始想的是正确的，
+//从0到length-1，中间数直接相加除2即可
+public class Solution {
+    public TreeNode sortedArrayToBST(int[] nums) {
+        if(nums.length==0) return null;
+        if(nums.length==1){
+            TreeNode node=new TreeNode(nums[0]);
+            return node;
+        }
+        return tree(nums,0,nums.length-1);
+    }
+    public static TreeNode tree(int[] nums,int begin_pos,int end_pos){
+       if(begin_pos>end_pos) return null;
+       int middle=(begin_pos+end_pos)/2;
+       TreeNode node=new TreeNode(nums[middle]);
+       node.left=tree(nums,begin_pos,middle-1);
+       node.right=tree(nums,middle+1,end_pos);
+       return node;
+    }//
+}

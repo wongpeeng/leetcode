@@ -1,0 +1,23 @@
+//我第一次做法是完全中序遍历，存储到arraylist中，然后返回第K个，但是这个时间略长，后来想了一下应该不需要存储，知道第k个节点返回即可
+public class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        //ArrayList<Integer> num=new ArrayList<Integer>();
+        Stack<TreeNode> s=new Stack<TreeNode>();
+        TreeNode cur=root;
+        int i=0;
+        while(!s.isEmpty()||cur!=null){
+            while(cur!=null){
+                s.push(cur);
+                cur=cur.left;
+            }//while
+            if(!s.isEmpty()){
+                cur=s.pop();
+                i=i+1;
+                if(i==k) break;
+                //num.add(cur.val);
+                cur=cur.right;
+            }//if
+        }//while
+       return cur.val;
+    }
+}

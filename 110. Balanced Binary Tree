@@ -1,0 +1,14 @@
+//递归即可
+public class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return ba(root)!=-1? true:false;
+    }
+    public int ba(TreeNode root){
+       if(root==null) return 0;
+       int lval=ba(root.left);
+       int rval=ba(root.right);
+       if(lval==-1 ||rval==-1) return -1;
+       if(Math.abs(lval-rval)<=1) return Math.max(lval+1,rval+1);
+       else return -1;
+    }//
+}

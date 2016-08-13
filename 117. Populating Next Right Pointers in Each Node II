@@ -1,0 +1,23 @@
+//按层遍历就好用
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        Queue<TreeLinkNode> q=new LinkedList<TreeLinkNode>();
+        if(root==null) return;
+        q.add(root);
+        int num=1;
+        TreeLinkNode pre=root,post=root;
+        while(!q.isEmpty()){
+           num=q.size();
+           for(int i=0;i<num;i++){
+               post=q.remove();
+               if(i==0)pre=post;
+               pre.next=post;
+               pre=post;
+               if(pre.left!=null) q.add(pre.left);
+               if(pre.right!=null) q.add(pre.right);
+           }//
+           post.next=null;
+        }//
+        return;
+    }
+}

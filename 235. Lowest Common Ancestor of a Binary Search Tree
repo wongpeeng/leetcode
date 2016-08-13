@@ -1,0 +1,16 @@
+//这道题比较有意思，我们知道这个是有序的，所以通过值得比较可以知道是否为节点的父节点
+public class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(p==null|| q==null) return null;
+        TreeNode father=root;
+        TreeNode temp=root;
+        while(temp!=null){
+            if(p.val>temp.val&&q.val<temp.val){father=temp;break;}
+            if(p.val<temp.val&&q.val>temp.val){father=temp;break;}
+            if(p.val>temp.val&&q.val>temp.val){father=temp;temp=temp.right;continue;}
+            if(p.val<temp.val&&q.val<temp.val){father=temp;temp=temp.left;continue;}
+            if(p.val==temp.val||q.val==temp.val) {father=temp;break;}
+        }//while
+        return father;
+    }
+}

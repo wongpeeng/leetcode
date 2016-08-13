@@ -1,0 +1,23 @@
+//这种方法最好理解，但是也要了解一下其它的非递归
+public class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        Stack<TreeNode> s1=new Stack<TreeNode>();
+        Stack<TreeNode> s2=new Stack<TreeNode>();
+        List<Integer> list=new ArrayList<Integer>();
+        if(root==null) return list;
+        s1.push(root);
+        TreeNode temp=root;
+        while(!s1.isEmpty()){
+            temp=s1.pop();
+            if(temp.left!=null)s1.push(temp.left);
+            if(temp.right!=null)s1.push(temp.right);
+            s2.push(temp);
+        }//while
+        
+        while(!s2.isEmpty()){
+            temp=s2.pop();
+            list.add(temp.val);
+        }//while
+        return list;
+ }
+}

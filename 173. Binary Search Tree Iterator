@@ -1,0 +1,35 @@
+//我的思路是，给一个初始节点，这其实是中序遍历，先找左字数、
+//弹出的时候再压右子树
+public class BSTIterator {
+    public TreeNode t;
+    public Stack<TreeNode> s;
+    
+    public BSTIterator(TreeNode root) {
+        t=root;
+        s=new Stack<TreeNode>();
+        TreeNode temp=root;
+        while(temp!=null){
+            s.push(temp);
+            temp=temp.left;
+        }//while
+    }
+
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        return !s.isEmpty();
+    }
+
+    /** @return the next smallest number */
+    public int next() {
+        TreeNode temp=s.pop();
+        int i=temp.val;
+        if(temp.right!=null){
+            temp=temp.right;
+            while(temp!=null){
+                s.push(temp);
+                temp=temp.left;
+            }//while
+        }//if
+        return i;
+    }
+}

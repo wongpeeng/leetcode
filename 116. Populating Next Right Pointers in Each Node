@@ -1,0 +1,27 @@
+//按层遍历，要有两个post和pre点
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if(root==null) return;
+        TreeLinkNode pre=root;
+        TreeLinkNode post=root;
+        Queue<TreeLinkNode> q1=new LinkedList<TreeLinkNode>();
+        Queue<Integer> q2=new LinkedList<Integer>();
+        int num1=0;
+        q1.add(root);
+        q2.add(num1);
+        int num2=0;
+        while(!q1.isEmpty()){
+            post=q1.remove();
+            num2=q2.remove();
+            if(num1==num2)
+                pre.next=post;
+            else
+                pre.next=null;
+            pre=post;
+            num1=num2;
+            if(post.left!=null){q1.add(post.left);q2.add(num1+1);}
+            if(post.right!=null){q1.add(post.right);q2.add(num1+1);}
+        }//while
+        post.next=null;
+    }
+}

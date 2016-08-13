@@ -1,0 +1,43 @@
+//首先想到的是递归，太慢，而且如果不对半处理一定会超时
+//看别人写的知道可以用两层循环依次求n,用一个动态数组存储就好了
+public class Solution {
+    public int numTrees(int n) {
+        return num(n);
+    }//muntree 
+    public int num(int n){
+        if(n==0||n==1) return 1;
+        if(n==2) return 2;
+        if(n==3) return 5;
+        n=n-1;
+        int i;
+        int sum=0;
+        for(i=0;i<n/2;i++)
+            sum=sum+num(i)*num(n-i)*2;
+        if(i==n-i) 
+            sum=sum+num(i)*num(i);
+        else
+            sum=sum+num(i)*num(n-i)*2;
+        return sum;
+    }//num
+}
+
+
+/////////////
+public class Solution {
+    public int numTrees(int n) {
+        ArrayList<Integer> num=new ArrayList<Integer>();
+        num.add(1);num.add(1);num.add(2);
+        int sum=0;
+        for(int i=3;i<=n;i++){
+            int temp=i-1;
+            sum=0;
+            for(int k=0;k*2<=temp;k++){
+                if(k!=temp-k) sum+=num.get(k)*num.get(temp-k)*2;
+                else sum+=num.get(k)*num.get(k);
+            }//for
+            num.add(sum);
+        }//for
+        
+        return num.get(n);
+    }
+}

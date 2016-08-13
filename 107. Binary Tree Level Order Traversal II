@@ -1,0 +1,55 @@
+//我最开始的做法还是老样子，终于在这里看到一个比较好的，通过事先知道每一层有多少个数，通过双循环实现，很好
+//如下
+public class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> list1=new LinkedList<>();
+        ArrayList<Integer> list2=new ArrayList<Integer>();
+        if(root==null) return list1;
+        Queue<TreeNode> q=new LinkedList<TreeNode>();
+        q.add(root);
+        TreeNode temp;
+        while(!q.isEmpty()){
+            int num=q.size();
+            list2=new ArrayList<Integer>();
+            for(int i=0;i<num;i++){
+                temp=q.remove();
+                if(temp.left!=null) q.add(temp.left);
+                if(temp.right!=null) q.add(temp.right);
+                list2.add(temp.val);
+            }
+            list1.add(0,list2);
+        }//while
+        return list1;
+     
+     
+     //////////////////////老样子的，不好
+     public class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> list1=new LinkedList<>();
+        ArrayList<Integer> list2=new ArrayList<Integer>();
+        if(root==null) return list1;
+        Queue<TreeNode> q1=new LinkedList<TreeNode>();
+        Queue<Integer> q2=new LinkedList<Integer>();
+        TreeNode pre=root;int num1=0;
+        TreeNode post; int num2;
+        q1.add(pre);q2.add(num1);
+        while(!q1.isEmpty()){
+            post=q1.remove();
+            num2=q2.remove();
+            if(num1==num2)
+                list2.add(post.val);
+            else{
+                list1.add(0,list2);
+                list2=new ArrayList<Integer>();
+                list2.add(post.val);
+            }
+            pre=post;
+            num1=num2;
+            if(post.left!=null){q1.add(post.left);q2.add(num1+1);}
+            if(post.right!=null){q1.add(post.right);q2.add(num1+1);}
+        }//while
+        list1.add(0,list2);
+        return list1;
+        
+    }
+}

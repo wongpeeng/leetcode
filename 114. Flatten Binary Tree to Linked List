@@ -1,0 +1,52 @@
+//很有意思的一道题，我看出来了规律但是没想到简洁的in place做法
+//我是借用队列和栈实现的，实际的话是找到根节点左子树的最右节点，然后把根节点的右节点变为它的右子树；
+//然后根节点的左子树变为右字数，根节点在变为它自己的右节点，很好的
+////////////看别人的想法写的
+public class Solution {
+    public void flatten(TreeNode root) {
+        while(root!=null){
+            if(root.left!=null){
+                TreeNode temp=root.left;
+                while(temp.right!=null)
+                    temp=temp.right;
+                    temp.right=root.right;
+                    root.right=root.left;
+                    root.left=null;
+            }//if
+            root=root.right;
+        }//while
+        return;
+    }
+}
+
+/////////////////////////////
+public class Solution {
+    public void flatten(TreeNode root) {
+        if(root==null) return;
+        Queue<TreeNode> q=new LinkedList<TreeNode>();
+        Stack<TreeNode> s=new Stack<TreeNode>();
+        TreeNode t=root;
+        while(!s.isEmpty()||t!=null){
+            while(t!=null){
+                q.add(t);
+                s.push(t);
+                t=t.left;
+            }
+            if(!s.isEmpty()){
+                t=s.pop();
+                t=t.right;
+            }//if
+        }//while
+        TreeNode pre,post;
+        pre=post=q.peek();
+        pre.left=null;pre.right=null;
+        while(!q.isEmpty()){
+            post=q.remove();
+            pre.left=null;pre.right=null;
+            pre.right=post;
+            pre=post;
+        }//while
+        pre.right=null;pre.left=null;
+        return;
+    }
+}

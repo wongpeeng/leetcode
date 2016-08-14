@@ -1,0 +1,21 @@
+//我用了两个队列，网上有用递归的，有用深度遍历的，估计需要用到两个栈
+public class Solution {
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> list=new ArrayList<String>();
+        if(root==null) return list;
+        Queue<TreeNode> q1=new LinkedList<TreeNode>();
+        Queue<String> q2=new LinkedList<String>();
+        q1.add(root);
+        q2.add(String.valueOf(root.val));
+        TreeNode temp;
+        String s;
+        while(!q1.isEmpty()){
+            temp=q1.remove();
+            s=q2.remove();
+            if(temp.right==null && temp.left==null)  list.add(0,s);
+            if(temp.left!=null) {q1.add(temp.left);q2.add(s+"->"+String.valueOf(temp.left.val));};
+            if(temp.right!=null) {q1.add(temp.right);q2.add(s+"->"+String.valueOf(temp.right.val));};
+        }//while
+        return list;
+    }
+}

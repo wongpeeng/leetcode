@@ -1,0 +1,31 @@
+//我的思路求一个全局变量的最大值，然后返回一个值给上面，最后比较哪个值大，分情况讨论比较重要，情况不能错
+//思想是对的，但是写法上好像不太好，没网上的好
+public class Solution {
+    public int max=Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        if(root==null) return max;
+        int temp=max_val(root);
+        return max>temp?max:temp;
+    }//mp
+    public int max_val(TreeNode root){
+        if(root.left==null && root.right==null){max=Math.max(max,root.val);return root.val;}
+        int lval=Integer.MIN_VALUE;
+        int rval=Integer.MIN_VALUE;
+        if(root.left!=null)lval=max_val(root.left);
+        if(root.right!=null)rval=max_val(root.right);
+        /////update max value
+        int temp;
+        if(root.val>=0) 
+            temp=root.val+Math.max(lval,0)+Math.max(rval,0);
+        else{
+            temp=Math.max(root.val,lval);
+            temp=Math.max(temp,rval);
+            if(lval>=0&&rval>=0) temp=Math.max(temp,root.val+lval+rval);//很重要的
+        }//else
+        max=max>temp?max:temp;
+        /////return 
+        temp=lval>rval?lval:rval;
+        temp=temp>0?temp:0;
+        return temp+root.val;
+    }//max
+}

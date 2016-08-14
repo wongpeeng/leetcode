@@ -1,0 +1,20 @@
+//普通的遍历
+public class Solution {
+    public boolean hasPathSum(TreeNode root, int sum) {
+        Queue<TreeNode> q=new LinkedList<TreeNode>();
+        if(root==null) return false;
+        q.add(root);
+        int num=1;
+        TreeNode temp;
+        while(!q.isEmpty()){
+            num=q.size();
+            for(int i=0;i<num;i++){
+                temp=q.remove();
+                if(temp.left==null && temp.right==null){if(temp.val==sum) return true;}
+                if(temp.left!=null){temp.left.val+=temp.val;q.add(temp.left);}
+                if(temp.right!=null){temp.right.val+=temp.val;q.add(temp.right);}
+            }//for
+        }//while
+        return false;
+    }
+}

@@ -2,7 +2,7 @@
 //思想是对的，但是写法上好像不太好，没网上的好
 //http://blog.csdn.net/geekmanong/article/details/50437766
 //这个写的简洁，主要是在更新和比较的情况下比较快，看了这个自己更新了一下写法
-//最主要的不同是max初始值为root值，然后max值的更新，主要是max是大于等于返回值的，所以更新可以比较方便的相加求最大
+//最主要的不同是max初始值为root值，然后max值的更新，主要是max是返回节点层面的最大值，所以只需考虑求和不需要考虑三个节点单独情况
 public class Solution {
     public int max=Integer.MIN_VALUE;
     public int maxPathSum(TreeNode root) {

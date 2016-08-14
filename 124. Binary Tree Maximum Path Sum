@@ -1,5 +1,8 @@
 //我的思路求一个全局变量的最大值，然后返回一个值给上面，最后比较哪个值大，分情况讨论比较重要，情况不能错
 //思想是对的，但是写法上好像不太好，没网上的好
+//http://blog.csdn.net/geekmanong/article/details/50437766
+//这个写的简洁，主要是在更新和比较的情况下比较快，看了这个自己更新了一下写法
+//最主要的不同是max初始值为root值，然后max值的更新，主要是max是大于等于返回值的，所以更新可以比较方便的相加求最大
 public class Solution {
     public int max=Integer.MIN_VALUE;
     public int maxPathSum(TreeNode root) {
@@ -28,4 +31,27 @@ public class Solution {
         temp=temp>0?temp:0;
         return temp+root.val;
     }//max
+}
+////////////////////////
+public class Solution {
+    public int max;
+    public int maxPathSum(TreeNode root) {
+        if(root==null) return Integer.MIN_VALUE;
+        max=root.val;
+        maxValue(root);
+        return max;
+    }
+    public int maxValue(TreeNode root){
+        if(root==null) return 0;
+        int lval=0;
+        int rval=0;
+        if(root.left!=null)lval=maxValue(root.left);
+        if(root.right!=null)rval=maxValue(root.right);
+        int temp;
+        temp=root.val+Math.max(lval,0)+Math.max(rval,0);
+        max=Math.max(max,temp);
+        ///return max
+        return Math.max(root.val,root.val+Math.max(lval,rval));
+        
+    }//
 }

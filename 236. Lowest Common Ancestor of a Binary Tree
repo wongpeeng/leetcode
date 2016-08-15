@@ -1,0 +1,15 @@
+//这道题我想了很久，也没想出来，看了答案才发现，这道题其实很有意思，这个判断的是一个节点是否拥有连个对象，
+//而不是说，他的自树里是否有两个值
+//除了空树以外一定包含两个对象
+public class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root==null) return null;
+        if(root==p||root==q) return root;
+        TreeNode l=null,r=null;
+        if(root.right!=null) r=lowestCommonAncestor(root.right,p,q);
+        if(root.left!=null) l=lowestCommonAncestor(root.left,p,q);
+        if(r!=null && l!=null) return root;
+        else
+            return l==null?r:l;
+    }
+}

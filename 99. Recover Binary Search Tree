@@ -1,0 +1,95 @@
+//我想的两种方法，一种是从左扫一遍然后从右扫一遍，扫一次会扫出一个点，交换，
+//第二种是，只扫一遍，扫到一个点之后从下一个点开始扫，如果第二阶段最后输出是空的话，，第二个点就是第二阶段开始的点
+/////////////1
+public class Solution {
+    public void recoverTree(TreeNode root) {
+        if(root==null) return;
+        Stack<TreeNode> q=new Stack<TreeNode>();
+        TreeNode m1=null;
+        TreeNode m2=null;
+        TreeNode temp=root;
+        while(!q.isEmpty()||temp!=null){
+            while(temp!=null){
+                q.push(temp);
+                temp=temp.left;
+            }//while
+            if(!q.isEmpty()){
+                temp=q.pop();
+                if(m1==null)m1=temp;
+                if(m1.val>temp.val) break;
+                m1=temp;
+                temp=temp.right;
+            }//if
+        }//while1
+        temp=root;
+        q=new Stack<TreeNode>();
+        while(!q.isEmpty()||temp!=null){
+            while(temp!=null){
+                q.push(temp);
+                temp=temp.right;
+            }//while
+            if(!q.isEmpty()){
+                temp=q.pop();
+                if(m2==null)m2=temp;
+                if(m2.val<temp.val) break;
+                m2=temp;
+                temp=temp.left;
+            }//if
+        }//while1
+        int i;
+        i=m1.val;
+        m1.val=m2.val;
+        m2.val=i;
+        return;
+    }
+}
+
+/////////////2
+public class Solution {
+    public void recoverTree(TreeNode root) {
+        if(root==null) return;
+        Stack<TreeNode> q=new Stack<TreeNode>();
+        TreeNode m1=null;
+        TreeNode m2=null;
+        TreeNode temp=root;
+        while(!q.isEmpty()||temp!=null){
+            while(temp!=null){
+                q.push(temp);
+                temp=temp.left;
+            }//while
+            if(!q.isEmpty()){
+                temp=q.pop();
+                if(m1==null)m1=temp;
+                if(m1.val>temp.val) break;
+                m1=temp;
+                temp=temp.right;
+            }//if
+        }//while1
+            //if(m1.val>temp.val){swap(m1,temp);return;}
+            TreeNode temp2=temp;
+            m2=temp;
+            m2=m2.right;
+            while(!q.isEmpty()||m2!=null){
+                while(m2!=null){
+                    q.push(m2);
+                    m2=m2.left;
+                }//while
+                if(!q.isEmpty()){
+                    m2=q.pop();
+                    if(m2.val<temp.val) break;
+                    temp=m2;
+                    m2=m2.right;
+                }//if
+            }//while2
+       if(m2==null)m2=temp2;
+       swap(m1,m2);
+       return;
+    }
+    public void swap(TreeNode m1,TreeNode m2){
+        int i;
+        i=m1.val;
+        m1.val=m2.val;
+        m2.val=i;
+    }//sap
+}
+   

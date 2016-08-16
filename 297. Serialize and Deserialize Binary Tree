@@ -1,0 +1,48 @@
+//这道题想了很久想出来写法，但是一直TLE，看了答案之后发现想法是一样的，但是他能过，用的不同的是stringbuilder
+//百度之后：http://blog.csdn.net/huwenhu2007/article/details/20692319
+//所以，因为string是不可变的，每次都要重新new一下，这样的话，就会导致时间的消耗
+public class Codec {
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        StringBuilder s = new StringBuilder();
+        if(root==null) return s.toString();
+        Queue<TreeNode> q=new LinkedList<TreeNode>();
+        q.add(root);
+        TreeNode temp;
+        while(!q.isEmpty()){
+                temp=q.remove();
+                if(temp==null)
+                    s.append(",null");
+                else {
+                   s.append(","+String.valueOf(temp.val));
+                    q.add(temp.left);
+                    q.add(temp.right);
+                }//else
+            }//while
+            return s.substring(1,s.length());
+        }
+        
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if(data.length()==0) return null;
+        String[] s=data.split(",");
+        TreeNode[] tree=new TreeNode[s.length];
+        for(int i=0;i<s.length;i++){
+            if("null".equals(s[i]))
+               tree[i]=null;
+            else
+               tree[i]=new TreeNode(Integer.parseInt(s[i]));
+        }//for
+        int i=1;
+        for(TreeNode t:tree){
+            if(t!=null){
+                t.left=tree[i];
+                t.right=tree[i+1];
+                i=i+2;
+            }
+        }//
+        return tree[0];
+    }//
+}

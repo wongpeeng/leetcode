@@ -1,0 +1,20 @@
+//思路是：到一个值的时候，我们用不包含前一个值得最大值加上本值，然后与包含前一个值的最大值交换，最后返回两个中的最大值
+//关键是不包含前一个值得最大值，我们把他加上本值了，其实，这个值与交换后的值不一定哪个大，所以要保存下来比较决定是那一个值是本值
+//之后的不包含前一个值得最大值
+public class Solution {
+    public int rob(int[] nums) {
+        if(nums.length==0) return 0;
+        int prein_max=0;
+        int preout_max=0;
+        int temp1;
+        int temp2;
+        for(int x:nums){
+            temp2=preout_max;
+            preout_max+=x;
+            temp1=prein_max;
+            prein_max=preout_max;
+            preout_max=Math.max(temp1,temp2);
+        }//while
+        return Math.max( prein_max,preout_max);
+    }
+}

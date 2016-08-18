@@ -1,5 +1,5 @@
 //同样的方法，还是不快问题是，还是找到同一个人写的递归，看不出来为什么他的快二十倍，贴在下面
-//关键是中序倒着找快，不知道为什么
+//关键是中序倒着找快，不知道为什么,我试着把自己的查找也倒着改，速度也提高了
 public class Solution {
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         if(inorder.length==0) return null;

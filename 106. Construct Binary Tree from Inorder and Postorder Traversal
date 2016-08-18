@@ -1,0 +1,51 @@
+//同样的方法，还是不快问题是，还是找到同一个人写的递归，看不出来为什么他的快二十倍，贴在下面
+public class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        if(inorder.length==0) return null;
+        return bt(inorder,postorder,0,inorder.length-1,inorder.length);
+    }
+    public TreeNode bt(int[] in,int[] post,int inpos,int postpos,int length){
+       if(length<=0) return null;
+       TreeNode node=new TreeNode(post[postpos]);
+       if(length==1) return node;
+       int i=0;
+       while(i<length){
+           if(post[postpos]==in[inpos+i])
+               break;
+             i++;
+       }//while
+       node.left=bt(in,post,inpos,postpos+i-length,i);
+       node.right=bt(in,post,inpos+i+1,postpos-1,length-i-1);
+       return node;
+    }//
+}
+
+///////////////////
+public class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+    return build(inorder,inorder.length-1,0,postorder,postorder.length-1);
+}
+
+public TreeNode build(int[] inorder, int inStart, int inEnd, int[] postorder, int postStart){
+	if(inEnd > inStart){
+		return null;
+	}
+	TreeNode root = new TreeNode(postorder[postStart]);
+	if(inEnd == inStart){
+		return root;
+	}
+	int index = 0;
+	// find the index in inorder:
+	for(int i = inStart; i >= inEnd; i--){
+		if(inorder[i] == root.val){
+			index = i;
+			break;
+		}
+	}
+	
+	root.right = build(inorder,inStart,index+1,postorder,postStart-1);
+	root.left = build(inorder,index-1,inEnd,postorder,postStart-(inStart-index)-1);
+	
+	return root;
+}
+}

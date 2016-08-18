@@ -1,0 +1,32 @@
+//分两次即可，第一部分不包含最后一个，第二部分不包含第一个，我在一个循环内写程，其实可以把这个携程函数调用两次
+public class Solution {
+    public int rob(int[] nums) {
+        if(nums.length==0) return 0;
+        if(nums.length==1) return nums[0];
+        int FpreIn=0;
+        int FpreOut=0;
+        int LpreIn=0;
+        int LpreOut=0;
+        int temp;
+        int temp2;
+        for(int i=0;i<nums.length;i++){
+            if(i<nums.length-1){
+                temp2=FpreOut;
+                FpreOut+=nums[i];
+                temp=FpreOut;
+                FpreOut=Math.max(FpreIn,temp2);
+                FpreIn=temp;
+            }//if
+            if(i>0){
+                temp2=LpreOut;
+                LpreOut+=nums[i];
+                temp=LpreOut;
+                LpreOut=Math.max(LpreIn,temp2);
+                LpreIn=temp;
+            }//if
+        }//for
+        LpreOut=Math.max(LpreIn,LpreOut);
+        FpreOut=Math.max(FpreIn,FpreOut);
+        return Math.max(LpreOut,FpreOut);
+    }
+}

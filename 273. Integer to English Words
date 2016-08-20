@@ -1,0 +1,46 @@
+//很没意思的一道题，主要是要写一个查表，处理好空格和0的问题
+public class Solution {
+    private String[] s1=new String[]{"","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"};
+    private String[] s2=new String[]{"","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"};
+    private String[] s3=new String[]{"","Ten","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"};
+    public String numberToWords(int num) {
+        int d=(int)Math.pow(10,9);
+        StringBuilder s=new StringBuilder("");
+        if(num==0) s.append("Zero");
+        int x;
+        /////////billion
+        x=num/d;
+        if(x!=0){s.append(numToS(x));s.append(" Billion");}
+        ///////////million
+        num=num%d;
+        d=d/1000;
+        x=num/d;
+        if(x!=0){if(s.length()!=0) s.append(" ");s.append(numToS(x));s.append(" Million");}
+        ///////////thousand
+        num=num%d;
+        d=d/1000;
+        x=num/d;
+        if(x!=0){if(s.length()!=0) s.append(" ");s.append(numToS(x));s.append(" Thousand");}
+        ////////////
+        x=num%d;
+        if(x!=0){if(s.length()!=0) s.append(" ");s.append(numToS(x));}
+        return s.toString();
+    }
+    public StringBuilder numToS(int num ){
+        StringBuilder s=new StringBuilder("");
+        int x;
+        int y;
+        x=num/100;
+        if(x!=0) {s.append(s1[x]);s.append(" Hundred");}
+        num=num%100;
+        if(num==0) return s;
+        x=num/10;
+        y=num%10;
+        if(s.length()!=0) s.append(" ");
+        if(y==0) s.append(s3[x]);
+        if(x==0) s.append(s1[y]);
+        if(x==1 &&y!=0) s.append(s2[y]);
+        if(x>1 &&y!=0) {s.append(s3[x]);s.append(" ");s.append(s1[y]);}
+        return s;
+    }///
+}

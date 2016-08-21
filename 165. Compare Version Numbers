@@ -1,0 +1,29 @@
+////之前不知道用split分割，这个很好用，注意分隔符要加上转意符号，然后不会产生空字符串
+public class Solution {
+    public int compareVersion(String version1, String version2) {
+        String[] s1=version1.split("\\.");
+        String[] s2=version2.split("\\.");
+        int i=0;int j=0;
+        int p=0,q=0;
+        while(i<s1.length&&j<s2.length){
+                p=Integer.parseInt(s1[i]);
+                q=Integer.parseInt(s2[j]);
+                if(p>q) return 1;
+                if(p<q) return -1;
+            i++;
+            j++;
+        }//while
+            
+        if(j!=s2.length){
+            for(;j<s2.length;j++)
+                if(Integer.parseInt(s2[j])!=0) return -1;
+            return 0;
+        }
+        if(i!=s1.length){
+            for(;i<s1.length;i++)
+                if(Integer.parseInt(s1[i])!=0) return 1;
+            return 0;
+        }
+       return 0;
+    }
+}

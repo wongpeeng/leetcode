@@ -1,4 +1,4 @@
-//递归，注意判断长度，另外ip的一小段的开头不是个位数时不能是0；
+//递归，注意判断长度，另外ip的一小段的开头不是个位数时不能是0；，我写的效率不太高，
 public class Solution {
     public List<String> restoreIpAddresses(String s) {
         List<String> res=new LinkedList<>();

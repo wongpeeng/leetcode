@@ -1,0 +1,74 @@
+//中缀转后缀，后缀再计算，需要注意的是优先级等于或高于的都要弹出，以及数字不一定是个位数，这个尤其要注意
+public class Solution {
+    public int calculate(String s) {
+        Queue<String> temp=zToh(s);
+        /////////////后缀进行计算
+        int p,q;
+        Stack<Integer> ss=new Stack<>();
+        String t;
+        while(!temp.isEmpty()){
+            t=temp.remove();
+            if(t.equals("+")||t.equals("-")||t.equals("*")||t.equals("/")){
+                q=ss.pop();
+                p=ss.pop();
+                switch(t.charAt(0)){
+                    case '+':ss.push(p+q);break;
+                    case '-':ss.push(p-q);break;
+                    case '*':ss.push(p*q);break;
+                    case '/':ss.push(p/q);break;
+                }//switch
+            }//if
+            else
+                ss.push(Integer.parseInt(t));
+        }//
+        return ss.pop();
+    }
+ 
+////////////中缀转后缀   
+    public Queue<String> zToh(String s){
+        Stack<String> st=new Stack<>();
+        Queue<String> temp=new LinkedList<>();
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)==' ') continue;
+            if(s.charAt(i)>47&&s.charAt(i)<58){
+                int j=i+1;
+                while(j<s.length()){
+                    if(s.charAt(j)>47&&s.charAt(j)<58)
+                        j++;
+                    else
+                        break;
+                    
+                }//while
+                temp.add(s.substring(i,j));
+                i=j-1;
+            }//if
+            else{
+                while(!st.isEmpty()){
+                    if(prior(s.charAt(i),st.peek().charAt(0)))
+                        {temp.add(st.pop());}
+                    else
+                        break;
+                }//while
+                st.push(String.valueOf(s.charAt(i)));
+            }//else
+        }//for
+        while(!st.isEmpty())temp.add(st.pop());
+        return temp;
+    }////
+    
+    public boolean prior(char s1,char s2){
+        switch(s1){
+            case '+':return true;
+            case '-':return true;
+            case '*':{
+                if(s2=='/'||s2=='*') return true;
+                return false;
+            }
+            case '/':{
+                if(s2=='*'||s2=='/') return true;
+                return false;
+            }
+        }
+        return true;
+    }//prior优先级
+}

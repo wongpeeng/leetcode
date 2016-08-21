@@ -1,0 +1,21 @@
+////只考虑单词，空格只管一个，不使用分割也很好
+//
+public class Solution {
+    public String reverseWords(String s) {
+        if(s.length()<1) return s;
+        StringBuilder res=new StringBuilder();
+        for(int i=s.length()-1;i>=0;i--){
+            int j;
+            if(s.charAt(i)!=' '){
+                for(j=i-1;j>=0;j--){
+                    if(s.charAt(j)==' ') break;
+                }//for
+                res.append(' ');
+                res.append(new StringBuilder(s.substring(j+1,i+1)));
+                i=j+1;
+            }//if
+        }//for
+        if(res.length()==0) return "";
+        return res.substring(1,res.length());
+    }
+}

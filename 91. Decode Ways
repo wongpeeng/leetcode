@@ -1,0 +1,19 @@
+/////递归会超时，用数组是一样的，注意要考虑0的情况
+public class Solution {
+    public int numDecodings(String s) {
+        if(s.length()==0) return 0;
+        int[] res=new int[s.length()+1];
+        res[s.length()]=1;
+        if(s.charAt(s.length()-1)!='0')res[s.length()-1]=1;
+        int i=s.length()-2;
+        for(;i>=0;i--){
+           if(s.charAt(i)=='0') res[i]=0;
+           else{
+               res[i]=res[i+1];
+               if(Integer.parseInt(s.substring(i,i+2))<27)
+                   res[i]+=res[i+2];
+           }
+        }//
+        return res[0];
+    }
+}

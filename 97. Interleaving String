@@ -1,3 +1,5 @@
+//这个我也是只想到了递归的方法，肯定会超时，以后要考虑这种矩阵式
+//这个思路是我知道了a的i个字符和b的j个字符可以组成c的i+j个字符，这样我可以通过判断a的i+1或者b的j+1与c的i+j+1是否相等算下去
 /////////////////////
 public class Solution {
     public boolean isInterleave(String s1, String s2, String s3) {

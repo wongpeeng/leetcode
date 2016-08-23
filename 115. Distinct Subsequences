@@ -1,0 +1,46 @@
+/////////////////////
+public class Solution {
+    public int numDistinct(String s, String t) {
+        if(s.length()<t.length()) return 0;
+        if(s.length()==0||t.length()==0) return 0;
+        int[][] res=new int[s.length()+1][t.length()+1];
+        int i=0;
+        for(;i<=s.length();i++)
+            res[i][0]=1;//变为空字符串只有一种变法
+        //不关心0X的情况,因实际遍历不会遇到这种,不存在1到2的情
+        int j=0;
+        for(i=1;i<=s.length();i++)
+            for(j=1;j<=t.length();j++){
+                res[i][j]=res[i-1][j];
+                if(s.charAt(i-1)==t.charAt(j-1))
+                   res[i][j]+=res[i-1][j-1];
+            }//for
+        return res[s.length()][t.length()];
+    }
+}
+////////////////////////
+public class Solution {
+    public int res;
+    public int numDistinct(String s, String t) {
+        if(s.length()<t.length()) return 0;
+        if(s.length()==t.length()) return s.equals(t)?1:0;
+        res=0;
+        count(s,0,t,0);
+        return res;
+    }
+    public void count(String s,int p,String t,int q){
+        if(q==t.length()){
+            if(p<=s.length()) res++;
+            return;
+        }//if
+        for(;p<s.length();p++){
+            if(s.charAt(p)==t.charAt(q)){
+                if(t.length()-q<=s.length()-p)
+                    count(s,p+1,t,q+1);
+                else
+                    break;
+            }//if
+        }//for
+        return;
+    }//count
+}

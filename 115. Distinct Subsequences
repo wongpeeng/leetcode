@@ -4,7 +4,7 @@
 public class Solution {
     public int numDistinct(String s, String t) {
         if(s.length()<t.length()) return 0;
-        if(s.length()==0||t.length()==0) return 0;//不能有一个为空，注意边界条件
+        //if(s.length()==0||t.length()==0) return 0;//不需要，是0也没关系
         int[][] res=new int[s.length()+1][t.length()+1];
         int i=0;
         for(;i<=s.length();i++)

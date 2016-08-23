@@ -1,0 +1,36 @@
+/////////////////////
+public class Solution {
+    public boolean isInterleave(String s1, String s2, String s3) {
+        if(s1.length()+s2.length()!=s3.length()) return false;
+        boolean[][] res=new boolean[s1.length()+1][s2.length()+1];
+        res[0][0]=true;
+        for(int i=0;i<=s1.length();i++)
+            for(int j=0;j<=s2.length();j++){
+                if(res[i][j]){
+                    if(i+1<=s1.length()&&s1.charAt(i)==s3.charAt(i+j))
+                        res[i+1][j]=true;
+                    if(j+1<=s2.length()&&s2.charAt(j)==s3.charAt(i+j))
+                        res[i][j+1]=true;
+                }
+            }//for
+        return res[s1.length()][s2.length()];
+    }
+}
+/////////////////////
+public class Solution {
+    public boolean isInterleave(String s1, String s2, String s3) {
+        if(s3.length()!=s1.length()+s2.length()) return false;
+        if(s1.length()==0) return s3.equals(s2)?true:false;
+        if(s2.length()==0) return s3.equals(s1)?true:false;
+        return sub(s1,0,s2,0,s3,0);
+    }
+    
+    public boolean sub(String s1,int p1,String s2,int p2,String s3, int p3){
+        if(p2+p1==s3.length()) return true;
+        if(p1<s1.length()&&s3.charAt(p3)==s1.charAt(p1))
+            if(sub(s1,p1+1,s2,p2,s3,p3+1)) return true;
+        if(p2<s2.length()&&s3.charAt(p3)==s2.charAt(p2))
+            if(sub(s1,p1,s2,p2+1,s3,p3+1)) return true;
+        return false;
+    }//sub
+}

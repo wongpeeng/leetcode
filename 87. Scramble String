@@ -1,0 +1,86 @@
+///////////////////////////
+public class Solution {
+    public boolean isScramble(String s1, String s2) {
+        if(s1.length()==0)
+            return false;
+        return scra(s1,s2); 
+    }
+    public boolean scra(String s1,String s2){
+        if(s1.length()!=s2.length()) return false;
+        if(s1.equals(s2)) return true;
+        char[] c1=s1.toCharArray();
+        char[] c2=s2.toCharArray();
+        Arrays.sort(c1);
+        Arrays.sort(c2);
+        if(!(new String(c1)).equals(new String(c2))) return false;
+        for(int i=0;i<s1.length()-1;i++){
+            if(scra(s1.substring(0,i+1),s2.substring(0,i+1))&&scra(s1.substring(i+1,s1.length()),s2.substring(i+1,s1.length())))
+                return true;
+            if(scra(s1.substring(0,i+1),s2.substring(s1.length()-i-1,s1.length()))&&scra(s1.substring(i+1,s1.length()),s2.substring(0,s1.length()-i-1)))
+                return true;
+        }//for
+        return false;
+        
+    }//scra
+}
+
+///////////////////////////////////
+public class Solution {
+    public int[] record=new int[26];
+    public boolean isScramble(String s1, String s2) {
+        if(s1.length()==0) return false;
+        return solve(s1,0,s1.length()-1,s2,0,s2.length()-1);
+    }
+    public boolean solve(String f,int s1,int e1,String s,int s2, int e2){
+        if(e1==s1) return f.charAt(s1)==s.charAt(s2)?true:false;
+        if(f.substring(s1,e1+1).equals(s.substring(s2,e2+1))) return true;
+        ///////找中间位置
+        int head=s2;
+        for(;head<=e2;head++) if(s.charAt(head)==f.charAt(s1)) break;
+        if(head>e2) return false;///////////先找头节点在交换之后的位置，如果找不到，错的
+        int tail=e2;
+        for(;tail>=s2;tail--) if(s.charAt(tail)==f.charAt(e1)) break;
+        if(tail<s2) return false;///////////再找尾节点在交换之后的位置，如果找不到，错的
+        //////////判断根的子树是否交换
+        boolean res=false;
+        int count=0;//用以计算几个不为0
+        int p,q,i;
+        if(head>tail){//没有交换左与左匹配否则左与右匹配{
+            for(i=0;s1+i<e1;i++){
+                p=f.charAt(s1+i)-'A';
+                q=s.charAt(s2+i)-'A';
+                if(record[p]==0) count++;
+                record[p]++;
+                if(record[q]==1) count--;
+                record[q]--;
+                if(count==0) break;
+            }//
+            if(s1+i==e1) return false;
+            res=solve(f,s1,s1+i,s,s2,s2+i)&&solve(f,s1+i+1,e1,s,s2+i+1,e2);
+            if(s1+i+1!=e1&&f.charAt(s1+i+1)==s.charAt(s2+i+1))
+                res|=solve(f,s1,s1+i+1,s,s2,s2+i+1)&&solve(f,s1+i+2,e1,s,s2+i+2,e2);
+        }//if
+        else{
+             for(i=0;s1+i<e1;i++){
+                p=f.charAt(s1+i)-'A';
+                q=s.charAt(e2-i)-'A';
+                if(record[p]==0) count++;
+                record[p]++;
+                if(record[q]==1) count--;
+                record[q]--;
+                if(count==0) break;
+            }//
+            if(s1+i==e1) return false;
+            res=solve(f,s1,s1+i,s,e2-i,e2)&&solve(f,s1+i+1,e1,s,s2,e2-i-1);
+            if(s1+i+1!=e1&&f.charAt(s1+i+1)==s.charAt(e2-i-1))
+                res|=solve(f,s1,s1+i+1,s,e2-i-1,e2)&&solve(f,s1+i+2,e1,s,s2,e2-i-2);
+        }//else
+        clear();
+        return res;
+    }//solve
+    public void clear(){
+        for(int x:record)
+            x=0;
+    }//clear
+    
+}

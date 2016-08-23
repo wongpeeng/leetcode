@@ -1,0 +1,79 @@
+//这个就是先往右伸长，再把左收缩，我使用了两个哈希表存储，一个存子的字符数，一个用来存父的
+//写的很麻烦，注意条件，特别又写错了，对象的对比不能用==；然后很慢速度，还是要参考别人的，也贴在这里了
+//注意，ascii码我们用的，不会超过128，所以用128的数字代替哈希表更合适，我没注意到这个
+public class Solution {
+    public String minWindow(String s, String t) {
+        if(s.length()<t.length()) return "";
+        if(s.length()==t.length()){
+           char[] s1=s.toCharArray();
+           char[] t1=t.toCharArray();
+           Arrays.sort(s1);
+           Arrays.sort(t1);
+           String ss=new String(s1);
+           String tt=new String(t1);
+           return ss.equals(tt)?s:"";
+        }//
+        HashMap<Character,Integer> map=new HashMap<>();
+        HashMap<Character,Integer> temp=new HashMap<>();
+        ////////先把字符放ma////////////
+        char m;
+        for(int i=0;i<t.length();i++){
+            m=t.charAt(i);
+            if(map.containsKey(m))
+                map.put(m,map.get(m)+1);
+            else
+                map.put(m,1);
+        }//for
+        //////////////////////////////
+        int i=0;int j=0;
+        int start=0;int end=s.length();
+        boolean eq;int test=0;
+        while(j<s.length()){
+            eq=false;
+            /////窗口先右伸长,再左收缩
+            for(;j<s.length();j++){
+                m=s.charAt(j);
+                if(map.containsKey(m)){
+                    if(temp.containsKey(m))
+                        temp.put(m,temp.get(m)+1);
+                    else
+                        temp.put(m,1);
+                    if(map.get(m).equals(temp.get(m)))
+                        {eq=equal(map,temp);if(eq)break;}
+                }//if
+            }//for
+            if(j==s.length()&&i==0) return "";
+            if(j!=s.length())j++;
+            if(eq&&j-i<end-start) {end=j;start=i;}
+            /////////////////////////收缩
+            for(;i<j;i++){
+                m=s.charAt(i);
+                if(map.containsKey(m)){
+                    if(equal(map,temp)){
+                        temp.put(m,temp.get(m)-1);
+                        if(j-i<end-start) {end=j;start=i;}
+                    }
+                    else
+                        break;
+                }//if
+            }//for2
+        }//while//////////////////////
+        return s.substring(start,end);
+    }
+    public boolean equal(Map<Character,Integer> m1,Map<Character,Integer> m2){
+        Iterator iter=m1.entrySet().iterator();
+        while(iter.hasNext()){
+            Map.Entry en=(Map.Entry)iter.next();
+            int i=(int)en.getValue();
+            int j=0;
+            if(m2.containsKey(en.getKey()))
+                j=m2.get(en.getKey());
+            else return false;
+            if(i>j)
+                return false;
+        }//while
+        return true;
+    }//equal
+    
+    
+}

@@ -14,7 +14,7 @@ public class Solution {
         int j=0;
         for(i=1;i<=s.length();i++)
             for(j=1;j<=t.length();j++){
-                res[i][j]=res[i-1][j];
+                res[i][j]=res[i-1][j];//不用考虑[i][i-1],因为这种情况变化不到字符j上
                 if(s.charAt(i-1)==t.charAt(j-1))
                    res[i][j]+=res[i-1][j-1];
             }//for

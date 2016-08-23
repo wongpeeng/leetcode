@@ -1,4 +1,6 @@
-/////////////////////
+//Dp没想出来，用的普通的递归，这个肯定会超时
+//看了解答写了一下：http://blog.csdn.net/worldwindjp/article/details/19770281
+///////////////////////
 public class Solution {
     public int numDistinct(String s, String t) {
         if(s.length()<t.length()) return 0;
@@ -7,7 +9,7 @@ public class Solution {
         int i=0;
         for(;i<=s.length();i++)
             res[i][0]=1;//变为空字符串只有一种变法
-        //不关心0X的情况,因实际遍历不会遇到这种,不存在1到2的情
+        //不关心i<j的情况,实际上这种因为字符串只能删除不能增加，值只会是0，放在遍历时看，是不影响结果的
         int j=0;
         for(i=1;i<=s.length();i++)
             for(j=1;j<=t.length();j++){

@@ -1,0 +1,45 @@
+
+//corner case:开头可以有空格，然后可以有一个符号位，然后之后就不能有除数字以外的任何符号，
+//注意不能超过int的表示范围，所以要先通过字符串进行比较在进行输出，超过上下线的以上下限为准
+public class Solution {
+    public int myAtoi(String str) {
+        if(str.length()==0) return 0;
+        int i=0;
+        int res=0;
+        boolean plus=false;
+        boolean minus=false;
+        char m;
+        ////////////////////////////////////找开头空格
+        for(i=0;i<str.length();i++){
+            m=str.charAt(i);
+            if(m==' ') continue;
+            if(m=='+'){plus=true; break;}//if
+            if(m=='-'){minus=true; break;}//if   
+            if(m>='0'&&m<='9') break;
+            return 0;
+        }
+        ///////////空格之后找符号，可以没有
+        for(;i<str.length();i++){
+            m=str.charAt(i);
+            if(m=='+'){plus=true;i++;break;}//if
+            if(m=='-'){minus=true;i++; break;}//if   
+            if(m>='0'&&m<='9') break;
+            return 0;
+        }
+        ///////////找数字
+        int start=i;
+        for(;i<str.length();i++){
+            if(str.charAt(i)<'0'|| str.charAt(i)>'9')
+                break;
+            else
+                res=res*10+(char)(str.charAt(i)-'0');
+        }
+        if(i-start>10) return minus?-2147483648:2147483647;
+        if(i-start<10) return minus?-res:res;
+        if(i-start==10) {
+            if(!minus) return str.substring(start,i).compareTo("2147483647")>=0?2147483647:res;
+            if(minus) return str.substring(start,i).compareTo("2147483648")>=0?-2147483648:-res;
+        }
+        return 0;
+    }
+}

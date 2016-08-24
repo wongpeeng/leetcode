@@ -1,0 +1,29 @@
+//两个指针问题，用到了set判断是否重复 
+public class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        //if(s.length()<2) return 1;
+        Map<Character,Integer> t=new HashMap<>();
+        int len=0;
+        int start=0;
+        int mid;
+        int i;
+        char m;
+        for(i=0;i<s.length();i++){
+            m=s.charAt(i);
+            if(t.containsKey(m)){
+                if(t.get(m)!=-1){
+                    mid=i-start;
+                    len=len>mid?len:mid;
+                    mid=t.get(m);
+                    for(int j=start;j<=mid;j++)
+                        t.put(s.charAt(j),-1);
+                    start=mid+1;
+                }
+            }//if
+            t.put(m,i);
+        }//for
+        mid=i-start;
+        len=len>mid?len:mid;
+        return len;
+    }
+}

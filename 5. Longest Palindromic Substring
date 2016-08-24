@@ -1,0 +1,26 @@
+//从中心往两侧找，遍历每个位置
+public class Solution {
+    public int left;
+    public int right;
+    public int len=0;
+    public String longestPalindrome(String s) {
+        if(s.length()<2)return s;
+        for(int i=0;i<s.length();i++){
+            ispa(s,i,i);
+            if(i!=0)ispa(s,i-1,i);
+            if(i!=s.length()-1)ispa(s,i,i+1);
+        }//for
+        return s.substring(left,right+1);
+    }
+    
+    public void ispa(String s,int l,int r){
+        for(;l>=0&&r<s.length();r++,l--){
+            if(s.charAt(l)==s.charAt(r)){
+                if(r-l+1>len){len=r-l+1;right=r;left=l;}
+            }
+            else
+                return;
+        }//while
+        return;
+    }//ispa
+}

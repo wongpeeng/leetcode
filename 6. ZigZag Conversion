@@ -1,0 +1,24 @@
+//找规律
+public class Solution {
+    public String convert(String s, int numRows) {
+        if(numRows<2||s.length()<=numRows) return s;
+        StringBuilder res=new StringBuilder();
+        int i=0;
+        int p,q;
+        int space=2*(numRows-1);
+        for(;i<s.length();i=i+space)
+            res.append(s.charAt(i));
+        for(i=1;i<numRows-1;i++){
+            p=i;q=space-p;
+            for(;p<s.length();p=p+space){
+                res.append(s.charAt(p));
+                if(q<s.length()){res.append(s.charAt(q));q+=space;}
+            }//for
+       
+        }//for
+        i=numRows-1;
+        for(;i<s.length();i=i+space)
+            res.append(s.charAt(i));
+        return res.toString();
+    }
+}

@@ -1,0 +1,39 @@
+public class Solution {
+    //注意情况的讨论，而且这个不能转为数字进行处理，主要原因是这个有可能超出数字范围
+    public String addBinary(String a, String b) {
+        if(a.length()==0) return b;
+        if(b.length()==0) return a;
+        StringBuilder res=new StringBuilder();
+        int carry=0;
+        int i=a.length()-1;
+        int j=b.length()-1;
+        char m,n;
+        for(;i>=0&&j>=0;i--,j--){
+            m=a.charAt(i);
+            n=b.charAt(j);
+            if(m=='1'&&n=='1'&&carry==1){res.insert(0,'1');carry=1;continue;}
+            if(m=='1'&&n=='1'&&carry==0){res.insert(0,'0');carry=1;continue;}
+            if(m=='1'&&n=='0'&&carry==1){res.insert(0,'0');carry=1;continue;}
+            if(m=='1'&&n=='0'&&carry==0){res.insert(0,'1');carry=0;continue;}
+            if(m=='0'&&n=='1'&&carry==1){res.insert(0,'0');carry=1;continue;}
+            if(m=='0'&&n=='1'&&carry==0){res.insert(0,'1');carry=0;continue;}
+            if(m=='0'&&n=='0'&&carry==1){res.insert(0,'1');carry=0;continue;}
+            if(m=='0'&&n=='0'&&carry==0){res.insert(0,'0');carry=0;continue;}
+        }//while
+        if(i<0&&j>=0) in(res,b,j,carry);
+        if(i>=0&&j<0) in(res,a,i,carry);
+        if(i<0&&j<0&&carry!=0)in(res,a,i,carry);
+        return res.toString();
+    }
+    public void in(StringBuilder res, String a,int i,int c){
+        char m;
+        for(;i>=0;i--){
+            m=a.charAt(i);
+            if(c==0) {res.insert(0,m);continue;}
+            if(m=='1'){res.insert(0,'0');continue;}
+            if(m=='0'){res.insert(0,'1');c=0;}
+        }//for
+         if(c==1) res.insert(0,'1');
+        return;
+    }//in
+}

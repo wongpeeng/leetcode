@@ -1,0 +1,33 @@
+//对语法不太熟悉，写的比较啰嗦
+public class Solution {
+    ///因为是letter，所以只有2~9有效
+    List<List<Character>> map=new ArrayList<>();
+    public List<String> letterCombinations(String digits) {
+        List<String> res=new LinkedList<>();
+        if(digits.length()==0) return res;
+        map.add(new ArrayList<Character>(Arrays.asList('a','b','c')));
+        map.add(new ArrayList<Character>(Arrays.asList('d','e','f')));
+        map.add(new ArrayList<Character>(Arrays.asList('g','h','i')));
+        map.add(new ArrayList<Character>(Arrays.asList('j','k','l')));
+        map.add(new ArrayList<Character>(Arrays.asList('m','n','o')));
+        map.add(new ArrayList<Character>(Arrays.asList('p','q','r','s')));
+        map.add(new ArrayList<Character>(Arrays.asList('t','u','v')));
+        map.add(new ArrayList<Character>(Arrays.asList('w','x','y','z')));
+        StringBuilder t=new StringBuilder();
+        process(digits,res,t,0);
+        return res;
+    }
+    public void process(String s,List<String> res,StringBuilder t,int pos){
+        if(pos==s.length()) {res.add(t.toString());return;}
+        char m;
+        m=s.charAt(pos);
+        if(m<'2'||m>'9') return;
+        int len=(map.get(m-'2')).size();
+        for(int i=0;i<len;i++){
+            t.append(map.get(m-'2').get(i));
+            process(s,res,t,pos+1);
+            t.deleteCharAt(t.length()-1);
+        }//for
+        return ;
+    }//process
+}

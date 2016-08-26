@@ -1,0 +1,13 @@
+//扫一遍统计就好了使用数组
+public class Solution {
+    public int firstUniqChar(String s) {
+        int[] res=new int[26];
+        int i=0;
+        for(;i<s.length();i++)
+            res[s.charAt(i)-'a']++;
+        for(i=0;i<s.length();i++)
+            if(res[s.charAt(i)-'a']==1)break;
+        if(i==s.length()) return -1;
+        else return i;
+    }
+}

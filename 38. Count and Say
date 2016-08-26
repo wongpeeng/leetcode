@@ -1,0 +1,29 @@
+//这个就是循环的看几个几的字符串
+public class Solution {
+    public String countAndSay(int n) {
+        if(n<2) return "1";
+        StringBuilder s=new StringBuilder();
+        s.append('1');
+        StringBuilder d;
+        int start=0,end,num;
+        for(int i=1;i<n;i++){
+            d=new StringBuilder();
+            start=end=0;
+            while(end<s.length()){
+                if(s.charAt(end)==s.charAt(start))
+                    end++;
+                else{
+                    num=end-start;
+                    d.append(num);
+                    d.append(s.charAt(start));
+                    start=end;
+                }
+            }//while
+            num=end-start;
+            d.append(num);
+            d.append(s.charAt(start));
+            s=d;
+        }//for
+        return s.toString();
+    }
+}

@@ -1,0 +1,39 @@
+//递归，只要右括号数不比左的大舅可以插入右括号
+
+public class Solution {
+    public int maxValue;
+    public int l;
+    public int r;
+    public List<String> generateParenthesis(int n) {
+        List<String> res=new LinkedList<>();
+        if(n==0)return res;
+        maxValue=n;
+        l=0;
+        r=0;
+        StringBuilder temp=new StringBuilder();
+        gp(res,temp);
+        return res;
+        
+    }
+    public void gp(List<String> res,StringBuilder t){
+        if(l==maxValue&&r==maxValue){
+           res.add(t.toString());
+           return  ;
+        }//
+        if(l<maxValue&&l>=r){
+            t.append('(');
+            l++;
+            gp(res,t);
+            t.deleteCharAt(t.length()-1);
+            l--;
+        }
+        if(l>r){
+            t.append(')');
+            r++;
+            gp(res,t);
+            t.deleteCharAt(t.length()-1);
+            r--;
+        }
+        return ;
+    }//gp
+}

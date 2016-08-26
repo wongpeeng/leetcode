@@ -1,0 +1,42 @@
+//这道题还有个规则，就是个位数考虑10-1=9，两位数只考虑100-10=90.三位数只考虑1000-100，和500-100；
+//这样的话就是同等量级的只减去同等量级的数，而且只减去一次：
+//比如389就不能认为是500-100-10-1的形式
+public class Solution {
+    public String intToRoman(int num) {
+        if(num<=0)return "";
+        StringBuilder res=new StringBuilder();
+        int d;
+        d=num/1000;num=num%1000;
+        inc(res,d,'M');
+        ///////////////////////////////三位数转换
+        if(num>=900){res.append("CM");num=num-900;}//
+        else{
+            d=num/500;num=num%500;inc(res,d,'D');
+        }//999~500之间
+        if(num>=400){res.append("CD");num=num-400;}
+        else{
+            d=num/100;num=num%100;inc(res,d,'C');
+        }//499~100之间
+
+        ///////////////////////////////两位数转换
+        if(num>=90){res.append("XC");num=num-90;}//
+        else{
+            d=num/50;num=num%50;inc(res,d,'L');
+        }//99~50之间
+        if(num>=40){res.append("XL");num=num-40;}
+        else{
+            d=num/10;num=num%10;inc(res,d,'X');
+        }//49~10之间
+        ///////////////////////各位数没问题
+        if(num==9) return res.append("IX").toString();
+        d=num/5;num=num%5;
+        inc(res,d,'V');
+        if(num==4) {res.append('I');res.append('V');}
+        else inc(res,num,'I');
+        return res.toString();
+    }
+    public void inc(StringBuilder s,int d,char c){
+        for(;d>0;d--)
+            s.append(c);
+    }
+}

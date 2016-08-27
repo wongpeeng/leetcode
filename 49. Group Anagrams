@@ -1,0 +1,25 @@
+//第一种方法我是使用了hashset暴力破解，便利次数较多，看了解答发现用hashmap配合sort并不慢，自己又写了一遍，注意key不是temp
+public class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res=new LinkedList<>();
+        if(strs.length==0) return res;
+        Map<String,List<String>> map=new HashMap<>();
+         for(int i = 0; i < strs.length; i++) { 
+            char[] c=strs[i].toCharArray();
+            Arrays.sort(c);
+            String temp=new String(c);
+            if(!map.containsKey(temp)){
+                List<String> f=new LinkedList<>();
+                f.add(strs[i]);
+                map.put(temp,f);
+            }
+            else map.get(temp).add(strs[i]);
+        }//for
+        Iterator iter=map.keySet().iterator();
+        while(iter.hasNext()){
+            String en=(String)iter.next();
+            res.add(map.get(en));
+        }
+        return res;
+    }//
+}

@@ -1,0 +1,47 @@
+//这个就是计算长度，这个每个词要加一个空格，对于剩余的数，要先平均，再求余数
+//注意长度是1的和末行是一样的处理方法
+public class Solution {
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> res=new LinkedList<>();
+        int start=0;
+        int pos;
+        for(pos=start;start<words.length;start=pos){
+            int len=0;//包含每个单词中间的一个空格
+            len=words[pos].length();pos++;
+            for(;pos<words.length;pos++){
+                len+=1+words[pos].length();
+                if(len>maxWidth){
+                    len=len-1-words[pos].length();break;
+                }
+            }//for
+            res.add(tot(words,maxWidth,start,pos,len));
+        }//
+        return res;
+    }
+    public String tot(String[] w,int width,int start,int pos,int len){
+        StringBuilder res=new StringBuilder();
+        if(pos==w.length||pos==start+1){
+            len=0;
+            for(;start<pos;start++){
+                res.append(w[start]);len+=w[start].length();
+                if(len<width){res.append(' ');len++;}
+            }
+            for(;len<width;len++)res.append(' ');
+        }//if
+        else{
+            len=width-len;
+            int avg=len/(pos-start-1);int remain=len%(pos-start-1);
+            len=0;
+            for(;start<pos;start++){
+               res.append(w[start]);len+=w[start].length();
+               if(start!=pos-1){
+                   //插入avg的空格数目
+                   res.append(' ');len++;
+                   for(int i=0;i<avg;i++){res.append(' ');len++;}
+                   if(remain>0){res.append(' ');len++;remain--;}
+               }//if
+            }//for
+        }//else
+        return res.toString();
+    }//tot
+}

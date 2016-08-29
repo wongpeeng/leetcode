@@ -1,0 +1,39 @@
+//我写的速度比较慢，主要是规则，/.就是上级目录，/..是上上级目录，三个点以上不用管，然后..的前后必须是/
+public class Solution {
+    public String simplifyPath(String path) {
+        Stack<Character> s=new Stack<>();
+        StringBuilder res=new StringBuilder();
+        s.push('/');
+        for(int i=0;i<path.length();i++){
+            if(path.charAt(i)!='/'&&path.charAt(i)!='.')
+                s.push(path.charAt(i));
+            else{
+                if(path.charAt(i)=='/'){
+                    if(i==path.length()-1) continue;
+                    else if(!s.isEmpty()&&s.peek()!='/')s.push('/');
+                }//if
+                else{
+                    int num=0;
+                    while(i<path.length()){
+                        if(path.charAt(i)=='.'){num++;i++;}
+                        else{i--;break;}
+                    }//while
+                    if(num<3&&s.peek()=='/'&&(i>=path.length()-1||path.charAt(i+1)=='/')){
+                        if(num==1){if(s.peek()=='/'&&s.size()>1) s.pop();continue;}
+                        if(num==2){if(s.peek()=='/'&&s.size()>1) s.pop();
+                            while(!s.isEmpty()){
+                                if(s.peek()!='/') s.pop();
+                                else {if(s.size()!=1) s.pop();break;}
+                            }//while
+                            continue;}
+                    }//if
+                     while(num>0){s.push('.');num--;}   
+                }//else
+            }//else
+        }//for
+        if(s.size()>1&&s.peek()=='/')s.pop();
+        while(!s.isEmpty())
+            res.insert(0,s.pop());
+        return res.toString();
+    }//sp
+}

@@ -1,5 +1,6 @@
 //我写的速度比较慢，主要是规则，/.就是上级目录，/..是上上级目录，三个点以上不用管，然后..的前后必须是/
 ///解答，这个解答写的比较好，就是先按照/进行分割，就好了，因为.其实是保持在当前目录，..才是会退，而x..x这种情况直接压栈
+//不用容器也可以模仿这个解答，可能速度会快一些，比如只入展起始位置
 public String simplifyPath(String path) {
     Deque<String> stack = new LinkedList<>();
     Set<String> skip = new HashSet<>(Arrays.asList("..",".",""));

@@ -1,0 +1,30 @@
+//这道题我没坐出来，下面直接贴的网上的答案
+//分为两种情况，有括号和没括号，没有的话直接生成对象返回即可
+//右括号的情况还分为带逗号，嵌套括号和平行括号几种，有括号的情况且不是[]，我们要处理的begin直接就是位置为1
+//循环的过程就是找本层括号中配对的括号或者本层的数据，因为配对会有，号所以我们使用cs[i]==','&&count==0作为条件进行处理
+// count+=(92-cs[i]);count用以判断配对，因为一个是91一个是93这样的话配对的话会是0，
+/最后如果循环中条件都不满足，一是输入的语法不对，这个不可能，要么就是里面只有一个数，这届添加返回
+public class Solution {  
+    public NestedInteger deserialize(String s) {  
+        if (s.contains("[")) {  
+            NestedInteger ans=new NestedInteger();  
+            if (s.length()>2) {  
+                int begin=1;  
+                char[] cs=s.toCharArray();  
+                int count=0;  
+                for (int i = 1; i < s.length()-1; i++) {  
+                    if (cs[i]==','&&count==0) {  
+                        ans.add(deserialize(s.substring(begin,i)));  
+                        begin=i+1;  
+                    }  
+                    if (cs[i]=='['||cs[i]==']') {  
+                        count+=(92-cs[i]);  
+                    }  
+                }  
+                ans.add(deserialize(s.substring(begin,s.length()-1)));  
+            }  
+            return ans;  
+        }  
+        return new NestedInteger(Integer.valueOf(s));  
+    }  
+}

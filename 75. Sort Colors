@@ -1,0 +1,25 @@
+//这道题很有意思，相当于我们知道一个位置的值之后，根据值进行扩展，然后再覆盖，我是用排序写的，下面是根据网上的解答写的
+//练手了几种排序方法，在另一个leetcode账户里面写的排序方法
+public class Solution {
+    public void sortColors(int[] nums) {
+        int i=-1;
+        int j=-1;
+        int k=-1;
+        for(int x:nums){
+            if(x==0){
+                k++;nums[k]=2;
+                j++;nums[j]=1;
+                i++;nums[i]=0;
+                
+            }
+            if(x==1){
+                k++;nums[k]=2;
+                j++;nums[j]=1;
+            }
+            if(x==2){
+                k++;nums[k]=2;
+            }
+        }//for
+        return;
+    }
+}

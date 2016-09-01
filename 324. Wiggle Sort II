@@ -1,0 +1,17 @@
+//题目要求的好的办法没想出来，我是复制数组并排序，因为这个的规律是间隔着放最大值就可以了
+//有简答的方法，没看，可以搜一下
+public class Solution {
+    public void wiggleSort(int[] nums) {
+        int[] n=new int[nums.length];
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length;i++)
+            n[i]=nums[i];
+        int j=nums.length-1;
+        for(int i=1;i<nums.length;i=i+2)
+            {nums[i]=n[j];j--;}
+        for(int i=0;i<nums.length;i=i+2)
+            {nums[i]=n[j];j--;}
+        return ;
+        
+    }
+}

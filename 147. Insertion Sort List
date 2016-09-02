@@ -1,0 +1,37 @@
+//需要辅助节点
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if(head==null||head.next==null) return head;
+        ListNode t=new ListNode(Integer.MIN_VALUE);
+        ListNode t1=t;
+        ListNode t2=t.next;
+        ListNode t3=head;
+        while(head!=null){
+            t1=t;
+            t2=t.next;
+            while(t2!=null){
+                if(t2.val<head.val){
+                    t1=t2;t2=t1.next;
+                }
+                else{
+                    t3=head.next;
+                    head.next=t2;
+                    t1.next=head;
+                    head=t3;
+                    break;
+                }//else
+            }//while
+            if(t2==null){
+                t1.next=head;head=head.next;t1.next.next=null;}
+        }//while
+        return t.next;
+    }
+}

@@ -1,0 +1,43 @@
+//因为这个给定的是一个无序的，所以我们先要排序，然后处理方法就是有交集就合并，不然就压，跟57题一样就好
+//自己实现方法：-1代表前者小，0代表两者相等，1代表前者大。
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+public class Solution {
+    ///这个也是排过序的
+    public List<Interval> merge(List<Interval> s) {
+        Interval temp=null;
+        List<Interval> res=new ArrayList<>();
+        int i=0;
+        Compare cmp=new Compare();
+        Collections.sort(s,cmp);
+        for(;i<s.size();i++){
+            if(temp==null) temp=s.get(i);
+            else{
+                if(s.get(i).start>temp.end){
+                    res.add(temp);temp=s.get(i);
+                }
+                else{
+                    temp.start=Math.min(temp.start,s.get(i).start);
+                    temp.end=Math.max(temp.end,s.get(i).end);
+                }//else
+            }//else
+        }//for
+        if(temp!=null) res.add(temp);
+        return res;
+    }
+    public class Compare implements Comparator{
+            public int compare(Object o1,Object o2){
+            Interval r1=(Interval)o1;
+            Interval r2=(Interval)o2;
+            if(r2.start==r1.start) return 0;
+            return r2.start>r1.start?-1:1;
+        }//compare
+    } //cmp
+}

@@ -1,0 +1,39 @@
+//这个题关键是知道怎么排序，怎么得到最大值，我也没想出来
+//其实很简单，主要是也没证明不知道是这样，要自己设定排序方法
+//a和b,如果ab比ba大，则a，b否则b,a排序，其实很简单，这个也是关键
+public class Solution {
+    //类自身可比较是类Comparable ，public int compareTo(Object o) {  ,隐含了this
+    //外面要实现comparator compare都必须是object
+    //通过log10判断位数
+    public String largestNumber(int[] nums) {
+        Integer[] array = new Integer[nums.length];  
+        int i = 0;  
+        for (int x : nums) {  
+            array[i++] = Integer.valueOf(x);  
+        }  
+        Compare cmp=new Compare();
+        Arrays.sort(array,cmp);
+        StringBuilder res=new StringBuilder();
+        for(int x:array){
+            if(x==0&&res.length()==0);
+            else res.append(x);
+        }//for
+        return res.length()==0?"0":res.toString();
+        
+    }
+    public class Compare implements Comparator {
+        public int compare(Object a1,Object a2){
+            Integer o1=(Integer)a1;
+            Integer o2=(Integer)a2;
+            if(o1==o2) return 0;
+            if(o1==0) return 1;
+            if(o2==0) return -1;
+            int w1=(int)Math.log10(o1)+1;
+            int w2=(int)Math.log10(o2)+1;
+            long r1 = (long) (o1 * Math.pow(10, w2) + o2);
+            long r2 = (long) (o2 * Math.pow(10, w1) + o1);
+            if(r1>r2) return -1;
+            return 1;
+        }//cmp
+    }//cmp
+}

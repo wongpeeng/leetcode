@@ -1,0 +1,37 @@
+//这道题我想到了桶排序，但是间距选错了，选了10，
+//gap的选择很重要，然后gap要往上圆整，所以max和min的选取必须是double
+//这个解答是只要我们把桶大小限制为最大和最小数的平均间距，这样最大间距就是桶之间出现，我们只需维护最大和最小值就行
+//注意桶号的处理
+public class Solution {
+    public int maximumGap(int[] nums) {
+        
+        if(nums.length<2) return 0;
+        if(nums.length==2) return Math.abs(nums[0]-nums[1]);
+        double max=nums[0];
+        double min=nums[0];
+        for(int x:nums){
+            if(x>max)max=x;
+            if(x<min)min=x;
+        }//for
+        int gap=(int)Math.ceil((max-min)/(nums.length-1));//平均间距；
+        if(gap==0) return 0;
+        int count=(int)(max-min+1)/gap+1;//间隔的选择很重要
+        int[][] res=new int[count][2];
+        for(int i=0;i<count;i++)
+            {res[i][0]=-1;res[i][1]=-1;}
+        for(int x:nums){
+            int n=(int)(x-min)/gap;
+            if(res[n][0]==-1){res[n][0]=x;res[n][1]=x;}
+            else{res[n][0]=x<res[n][0]?x:res[n][0];res[n][1]=x>res[n][1]?x:res[n][1];}
+        }//for
+        int pre=(int)min;
+        int t=0;int m=0;
+        for(int i=0;i<count;i++){
+            if(res[i][0]==-1) continue;
+            t=res[i][0]-pre;
+            m=t>m?t:m;
+            pre=res[i][1];
+        }
+        return m;
+    }//max
+}
